@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('address');
             $table->string('tel');
-            $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('province');
             $table->timestamps();
             $table->softDeletes();

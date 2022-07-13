@@ -22,11 +22,12 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
-            'age' => fake()->name(),
+            'age' => rand(10,100),
             'email_verified_at' => now(),
             'password' => Hash::make('12345678'), // password
-            'status' => rand(10,100),
-            'avatar' => basename($this->faker->image(storage_path('image/avatar'))),
+            'status' => rand(0,1),
+            'birthday' => '1999/01/01',
+            'avatar' => basename($this->faker->image(storage_path('app\public\image\avatar'))),
             'remember_token' => Str::random(10),
         ];
     }
