@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -81,5 +82,22 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         //
+    }
+
+    /**
+     * Display a profile of comment's user.
+     *
+     * @param  \App\Models\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function User(Comment $comment)
+    {
+        $user = DB::table('users')
+                ->where('id', '=', $comment->user_id)
+                ->first();
+        $profile = DB::table('profiles')
+                    ->where('user_id','=',$user->id)
+                    ->first();
+        return view('comment.user',compact('user','profile'));
     }
 }
