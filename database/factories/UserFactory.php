@@ -27,7 +27,6 @@ class UserFactory extends Factory
             'password' => Hash::make('12345678'), // password
             'status' => rand(0,1),
             'birthday' => '1999/01/01',
-            'avatar' => basename($this->faker->image(storage_path('app\public\image\avatar'))),
             'remember_token' => Str::random(10),
         ];
     }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('age')->after("name");
             $table->dateTime('birthday')->after("password");
             $table->integer('status')->after("birthday");
-            $table->string('avatar',1024)->after("status");
+            $table->string('avatar',1024)->after("status")->default("/avatar/avatar.jfif");
             $table->softDeletes();
         });
     }
