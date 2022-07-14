@@ -24,9 +24,9 @@
             <label for="name">Search by Name:</label>
             <input type="text" id="name" name="name">
             <label for="posts">Search by number of posts:</label>
-            <input type="text" id="posts" name="posts">
+            <input type="number" id="posts" name="posts">
             <label for="comments">Search by number of comments:</label>
-            <input type="text" id="comments" name="comments">
+            <input type="number" id="comments" name="comments">
             <button type="submit" class="btn-warning">Search</button>
         </form>
     </div>
