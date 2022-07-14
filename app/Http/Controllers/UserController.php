@@ -39,10 +39,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         $image = "/avatar/avatar.jfif";
         if($request->hasFile('avatar')){
-            $image =  $request->file('avatar')->store(
+            $image =  'storage/'.$request->file('avatar')->store(
                 'image/avatar', 'public'
             );
         }
@@ -58,9 +58,10 @@ class UserController extends Controller
         DB::table('profiles')->insert([
             'address' => $request->address,
             'tel' => $request->tel,
-            'user_id' =>$id
+            'user_id' =>$id,
+            'province' => $request->province,
         ]);
-        
+        return redirect()->to('/users');
     }
 
     /**

@@ -30,7 +30,7 @@
                 @for ($i=0; $i < sizeof($userList); $i++)
                     <TR>
                         <TD>{{$i+1}}</TD>
-                        <TD><img src="{{URL::to($userList[$i]->avatar)}}" alt="avatar" class="img-responsive"></TD>
+                        <TD><img src="{{URL::to($userList[$i]->avatar)}}" alt="avatar" class="img-fluid"></TD>
                         <TD><a href="/users/{{$userList[$i]->id}}/posts">{{$userList[$i]->name}}</a></TD>
                         <TD>{{$userList[$i]->age}}</TD>
                         <TD>{{$userList[$i]->email}}</TD>

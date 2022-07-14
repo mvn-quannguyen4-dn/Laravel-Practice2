@@ -32,7 +32,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Content</th>
                     <th scope="col">Time</th>
-                    <th scope="col">Action</th>
+                    <!-- <th scope="col">Action</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -41,10 +41,10 @@
                         <TD>{{$i+1}}</TD>
                         <TD>{{\Illuminate\Support\Str::limit($comments[$i]->content, 100, $end='...')}}</TD>
                         <TD>{{$comments[$i]->created_at}}</TD>
-                        <TD>
+                        <!-- <TD>
                             <a href=""><button class="btn-primary">Show Detail</button></a>
                             <a href=""><button class="btn-warning">Delete</button></a>
-                        </TD>
+                        </TD> -->
                     </TR>
                 @endfor
             </tbody>
@@ -57,7 +57,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Content</th>
                     <th scope="col">Time</th>
-                    <th scope="col">Action</th>
+                    <!-- <th scope="col">Action</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -66,10 +66,10 @@
                         <TD>{{$i+1}}</TD>
                         <TD>{{\Illuminate\Support\Str::limit($posts[$i]->content, 100, $end='...')}}</TD>
                         <TD>{{$posts[$i]->created_at}}</TD>
-                        <TD>
+                        <!-- <TD>
                             <a href=""><button class="btn-primary">Show Detail</button></a>
                             <a href=""><button class="btn-warning">Delete</button></a>
-                        </TD>
+                        </TD> -->
                     </TR>
                 @endfor
             </tbody>
