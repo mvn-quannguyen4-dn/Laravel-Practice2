@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $userList = User::withCount('comments','posts')->get();
+        $userList = User::withCount('comments','posts')->sortable()->simplePaginate(10);
         return view('user.index', compact('userList'));
     }
 
@@ -32,8 +32,7 @@ class UserController extends Controller
         $data = $request->only(['name','posts','comments']);
         if($request->name){
             $userList = User::withCount('comments','posts')
-            ->where('name','like',"%".$data['name']."%")
-            ->get();
+            ->where('name','like',"%".$data['name']."%")->get();
         }
         else{
             $userList = User::withCount('comments','posts')->get();

@@ -9,6 +9,11 @@
     rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
     crossorigin="anonymous">
+    <link 
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" 
+    crossorigin="anonymous">
     <title>List User</title>
 </head>
 
@@ -31,8 +36,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Avatar</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Age</th>
+                    <th scope="col">@sortablelink('name','Name')</th>
+                    <th scope="col">@sortablelink('age','Age')</th>
                     <th scope="col">Email</th>
                     <th scope="col">BirthDay</th>
                     <th scope="col">Number of comments</th>
@@ -43,7 +48,7 @@
             <tbody>
                 @foreach ($userList as $user)
                     <TR>
-                        <TD>{{$loop->index+1}}</TD>
+                        <TD>{{$user->id}}</TD>
                         <TD><img src="{{URL::to($user->avatar)}}" alt="avatar" class="img-fluid"></TD>
                         <TD><a href="/users/{{$user->id}}/posts">{{$user->name}}</a></TD>
                         <TD>{{$user->age}}</TD>
@@ -59,6 +64,9 @@
                 @endforeach
             </tbody>
         </table>
+        @if(Route::current()->getName() == 'users.index')
+        {!! $userList->links() !!}
+        @endif
     </div>
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
