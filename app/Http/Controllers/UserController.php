@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $userList = User::all();
+        $userList = User::withCount('comments','posts')->get();
         return view('user.index', compact('userList'));
     }
 

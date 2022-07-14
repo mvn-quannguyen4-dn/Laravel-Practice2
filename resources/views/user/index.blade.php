@@ -23,6 +23,8 @@
                     <th scope="col">Age</th>
                     <th scope="col">Email</th>
                     <th scope="col">BirthDay</th>
+                    <th scope="col">Number of comments</th>
+                    <th scope="col">Number of posts</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -35,6 +37,8 @@
                         <TD>{{$userList[$i]->age}}</TD>
                         <TD>{{$userList[$i]->email}}</TD>
                         <TD>{{$userList[$i]->birthday}}</TD>
+                        <TD class="text-center"><a href="/users/{{$userList[$i]->id}}/comments">{{$userList[$i]->comments_count}}</a></TD>
+                        <TD class="text-center"><a href="/users/{{$userList[$i]->id}}/posts">{{$userList[$i]->posts_count}}</a></TD>
                         <TD>
                             <a href="/users/{{$userList[$i]->id}}/comments"><button class="btn-primary">Show Comment</button></a>
                             <a href="/users/{{$userList[$i]->id}}"><button class="btn-info">Show Detail</button></a>
