@@ -21,9 +21,9 @@
         <p>Age: <span class="text-primary">{{$user->age}}</span></p>
         <p>Email: <span class="text-primary">{{$user->email}}</span></p>
         <p>Birthday: <span class="text-primary">{{$user->birthday}}</span></p>
-        <p>Address: <span class="text-primary">{{$profile->address}}</span></p>
-        <p>Phone Number: <span class="text-primary">{{$profile->tel}}</span></p>
-        <p>Province: <span class="text-primary">{{$profile->province}}</span></p>
+        <p>Address: <span class="text-primary">{{$user->profile->address}}</span></p>
+        <p>Phone Number: <span class="text-primary">{{$user->profile->tel}}</span></p>
+        <p>Province: <span class="text-primary">{{$user->profile->province}}</span></p>
     </div>
     </div>
     <script

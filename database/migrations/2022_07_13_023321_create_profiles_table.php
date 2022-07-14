@@ -16,10 +16,13 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->string('address');
-            $table->string('tel');
-            $table->unsignedBigInteger('user_id');
+            $table->string('tel')->unique();
             $table->string('province');
-            $table->timestamps();
+            $table->timestamps();      
+            $table->foreignId('user_id')
+            ->constrained('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->softDeletes();
         });
     }

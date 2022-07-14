@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $userList = DB::table('users')->get();
+        $userList = User::all();
         return view('user.index', compact('userList'));
     }
 
@@ -40,25 +41,27 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $data = $request->all();
         $image = "/avatar/avatar.jfif";
         if($request->hasFile('avatar')){
             $image =  'storage/'.$request->file('avatar')->store(
                 'image/avatar', 'public'
             );
+            $data['avatar'] = $image;
         }
-        $id = DB::table('users')->insertGetId([
-            'name' => $request->name,
-            'age' => $request->age,
-            'email' => $request->email, 
-            'password' => Hash::make($request->password),
-            'birthday' => $request->birthday,
+        $user = User::create([     
+            'name' => $data['name'],
+            'age' => $data['age'],
+            'email' => $data['email'], 
+            'password' => Hash::make($data['password']),
+            'birthday' => $data['birthday'],
             'status' => rand(0,1),
-            'avatar' => $image,
+            'avatar' => $data['avatar'],
         ]);
-        DB::table('profiles')->insert([
+        \App\Models\Profile::create([
             'address' => $request->address,
             'tel' => $request->tel,
-            'user_id' =>$id,
+            'user_id' =>$user->id,
             'province' => $request->province,
         ]);
         return redirect()->to('/users');
@@ -72,16 +75,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $comments = DB::table('comments')
-                    ->where('user_id','=',$user->id)
-                    ->get();
-        $posts = DB::table('posts')
-                    ->where('user_id','=',$user->id)
-                    ->get();
-        $profile = DB::table('profiles')
-                    ->where('user_id','=',$user->id)
-                    ->first();
-        return view('user.show',compact('user','comments','posts','profile'));
+        $user->load('posts','profile','comments');
+        return view('user.show',compact('user'));
     }
 
     /**
@@ -127,10 +122,8 @@ class UserController extends Controller
      */
     public function Comment(User $user)
     {
-        $comments = DB::table('comments')
-        ->where('user_id', '=', $user->id)
-        ->get();
-        return view('user.comment',compact('comments'));
+        $user->load('comments');
+        return view('user.comment',compact('user'));
     }
 
     /**
@@ -141,9 +134,7 @@ class UserController extends Controller
      */
     public function Post(User $user)
     {
-        $posts = DB::table('posts')
-        ->where('user_id', '=', $user->id)
-        ->get();
-        return view('user.post',compact('posts','user'));
+        $user->load('posts');
+        return view('user.post',compact('user'));
     }
 }
