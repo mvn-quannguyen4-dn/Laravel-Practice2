@@ -10,4 +10,8 @@ class Profile extends Model
 {
     use HasFactory,SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    public function user(){
+        return $this->belongsTo(\App\Models\User::class);
+    }
 }
