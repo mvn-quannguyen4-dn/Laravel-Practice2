@@ -23,6 +23,36 @@ class UserController extends Controller
     }
 
     /**
+     * Display a listing of the searched resource with key.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $data = $request->only(['name','posts','comments']);
+        if($request->name){
+            $userList = User::withCount('comments','posts')
+            ->where('name','like',"%".$data['name']."%")
+            ->get();
+        }
+        else{
+            $userList = User::withCount('comments','posts')->get();
+        }
+        if($request->posts){
+            $userList = $userList->filter(function($user) use ($data){
+                return $user->posts_count == $data['posts'];
+            });
+        }
+        if($request->comments){
+            $userList = $userList->filter(function($user) use ($data){
+                return $user->comments_count == $data['comments'];
+            });
+            
+        }
+        return view('user.index', compact('userList'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
