@@ -15,7 +15,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::all();
+        return view('comment.index', compact('comments'));
     }
 
     /**
@@ -92,12 +93,8 @@ class CommentController extends Controller
      */
     public function User(Comment $comment)
     {
-        $user = DB::table('users')
-                ->where('id', '=', $comment->user_id)
-                ->first();
-        $profile = DB::table('profiles')
-                    ->where('user_id','=',$user->id)
-                    ->first();
-        return view('comment.user',compact('user','profile'));
+        $user = \App\Models\User::find($comment->user_id);
+        $user->load('profile');
+        return view('comment.user',compact('user'));
     }
 }

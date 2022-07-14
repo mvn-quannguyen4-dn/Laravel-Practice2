@@ -24,13 +24,13 @@
                 </tr>
             </thead>
             <tbody>
-                @for ($i=0; $i < sizeof($comments); $i++)
+                @for ($i=0; $i < sizeof($user->comments); $i++)
                     <TR>
                         <TD>{{$i+1}}</TD>
-                        <TD>{{\Illuminate\Support\Str::limit($comments[$i]->content, 100, $end='...')}}</TD>
-                        <TD>{{$comments[$i]->created_at}}</TD>
+                        <TD>{{\Illuminate\Support\Str::limit($user->comments[$i]->content, 100, $end='...')}}</TD>
+                        <TD>{{$user->comments[$i]->created_at}}</TD>
                         <TD>
-                            <a href="/comments/{{$comments[$i]->id}}/users"><button class="btn-primary">Show User</button></a>
+                            <a href="/comments/{{$user->comments[$i]->id}}/users"><button class="btn-primary">Show User</button></a>
                         </TD>
                     </TR>
                 @endfor

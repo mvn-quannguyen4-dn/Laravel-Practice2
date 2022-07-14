@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kyslik\ColumnSortable\Sortable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Sortable;
     protected $dates = ['deleted_at'];
 
     /**
@@ -21,8 +22,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'age',
         'email',
         'password',
+        'birthday',
+        'status',
+        'avatar',
     ];
 
     /**
@@ -35,6 +40,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public $sortable = ['age', 'name'];
     /**
      * The attributes that should be cast.
      *
@@ -43,4 +49,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function posts(){
+        return $this->hasMany(\App\Models\Post::class);
+    }
+    public function profile(){
+        return $this->hasOne(\App\Models\Profile::class);
+    }
+    public function comments(){
+        return $this->hasMany(\App\Models\Comment::class);
+    }
 }

@@ -21,9 +21,9 @@
         <p>Age: <span class="text-primary">{{$user->age}}</span></p>
         <p>Email: <span class="text-primary">{{$user->email}}</span></p>
         <p>Birthday: <span class="text-primary">{{$user->birthday}}</span></p>
-        <p>Address: <span class="text-primary">{{$profile->address}}</span></p>
-        <p>Phone Number: <span class="text-primary">{{$profile->tel}}</span></p>
-        <p>Province: <span class="text-primary">{{$profile->province}}</span></p>
+        <p>Address: <span class="text-primary">{{$user->profile->address}}</span></p>
+        <p>Phone Number: <span class="text-primary">{{$user->profile->tel}}</span></p>
+        <p>Province: <span class="text-primary">{{$user->profile->province}}</span></p>
     </div>
     <h2>{{$user->name}}'s Comments: </h2>:
         <table class="table table-success table-striped">
@@ -36,11 +36,11 @@
                 </tr>
             </thead>
             <tbody>
-                @for ($i=0; $i < sizeof($comments); $i++)
+                @for ($i=0; $i < sizeof($user->comments); $i++)
                     <TR>
                         <TD>{{$i+1}}</TD>
-                        <TD>{{\Illuminate\Support\Str::limit($comments[$i]->content, 100, $end='...')}}</TD>
-                        <TD>{{$comments[$i]->created_at}}</TD>
+                        <TD>{{\Illuminate\Support\Str::limit($user->comments[$i]->content, 100, $end='...')}}</TD>
+                        <TD>{{$user->comments[$i]->created_at}}</TD>
                         <!-- <TD>
                             <a href=""><button class="btn-primary">Show Detail</button></a>
                             <a href=""><button class="btn-warning">Delete</button></a>
@@ -61,11 +61,11 @@
                 </tr>
             </thead>
             <tbody>
-                @for ($i=0; $i < sizeof($posts); $i++)
+                @for ($i=0; $i < sizeof($user->posts); $i++)
                     <TR>
                         <TD>{{$i+1}}</TD>
-                        <TD>{{\Illuminate\Support\Str::limit($posts[$i]->content, 100, $end='...')}}</TD>
-                        <TD>{{$posts[$i]->created_at}}</TD>
+                        <TD>{{\Illuminate\Support\Str::limit($user->posts[$i]->content, 100, $end='...')}}</TD>
+                        <TD>{{$user->posts[$i]->created_at}}</TD>
                         <!-- <TD>
                             <a href=""><button class="btn-primary">Show Detail</button></a>
                             <a href=""><button class="btn-warning">Delete</button></a>

@@ -10,4 +10,11 @@ class Post extends Model
 {
     use HasFactory,SoftDeletes;
     protected $dates = ['deleted_at'];
+    
+    public function user(){
+        return $this->hasOne(\App\Models\User::class);
+    }
+    public function comments(){
+        return $this->hasMany(\App\Models\Post::class);
+    }
 }

@@ -9,31 +9,29 @@
     rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
     crossorigin="anonymous">
-    <title>User profile</title>
+    <title>List User's Comments</title>
 </head>
 
 <body class="antialiased">
     <div class=".container-md" style="margin: 50px 10% ;">
-    <h1>{{$user->name}}'s Posts:</h1>:
         <table class="table table-success table-striped">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Content</th>
                     <th scope="col">Time</th>
-                    <!-- <th scope="col">Action</th> -->
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @for ($i=0; $i < sizeof($user->posts); $i++)
+                @for ($i=0; $i < sizeof($comments); $i++)
                     <TR>
                         <TD>{{$i+1}}</TD>
-                        <TD>{{\Illuminate\Support\Str::limit($user->posts[$i]->content, 100, $end='...')}}</TD>
-                        <TD>{{$user->posts[$i]->created_at}}</TD>
-                        <!-- <TD>
-                            <a href=""><button class="btn-primary">Show Detail</button></a>
-                            <a href=""><button class="btn-warning">Delete</button></a>
-                        </TD> -->
+                        <TD>{{\Illuminate\Support\Str::limit($comments[$i]->content, 100, $end='...')}}</TD>
+                        <TD>{{$comments[$i]->created_at}}</TD>
+                        <TD>
+                            <a href="/comments/{{$comments[$i]->id}}/users"><button class="btn-primary">Show User</button></a>
+                        </TD>
                     </TR>
                 @endfor
             </tbody>
