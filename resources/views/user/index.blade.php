@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,19 +15,39 @@
     rel="stylesheet" 
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" 
     crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>List User</title>
 </head>
 
 <body class="antialiased">
     <div class = "container">
+        @extends('user.editModal')
+        @extends('user.deleteConfirm')
+        @extends('user.addModal')
+
+        <button type="button" id="btn-add" class="btn btn-success" data-toggle="modal" data-target="#Modal-add">Add new user</button>
         <form action="/users/search" method="POST">
         @csrf
-            <label for="name">Search by Name:</label>
-            <input type="text" id="name" name="name">
+            <div class="form-group" >
+                <label for="name">Search by Name:</label>
+                <input class="form-control" type="text" id="search-name" name="name">   
+            </div>
+            <div class="form-group" >
             <label for="posts">Search by number of posts:</label>
-            <input type="number" id="posts" name="posts">
-            <label for="comments">Search by number of comments:</label>
-            <input type="number" id="comments" name="comments">
+            <input class="form-control" type="number" id="posts" name="posts"> 
+            </div>
+            <div class="form-group" >
+            <label  for="comments">Search by number of comments:</label>
+            <input class="form-control" type="number" id="comments" name="comments"> 
+            </div>
             <button type="submit" class="btn-warning">Search</button>
         </form>
     </div>
@@ -42,23 +63,28 @@
                     <th scope="col">BirthDay</th>
                     <th scope="col">Number of comments</th>
                     <th scope="col">Number of posts</th>
+                    <th scope="col">View</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($userList as $user)
-                    <TR>
-                        <TD>{{$user->id}}</TD>
+                    <TR class="data-row">
+                        <TD class='id'>{{$user->id}}</TD>
                         <TD><img src="{{URL::to($user->avatar)}}" alt="avatar" class="img-fluid"></TD>
-                        <TD><a href="/users/{{$user->id}}/posts">{{$user->name}}</a></TD>
-                        <TD>{{$user->age}}</TD>
-                        <TD>{{$user->email}}</TD>
-                        <TD>{{$user->birthday}}</TD>
+                        <TD class ='name'><a href="/users/{{$user->id}}/posts">{{$user->name}}</a></TD>
+                        <TD class ='age'>{{$user->age}}</TD>
+                        <TD class ='email'>{{$user->email}}</TD>
+                        <TD class ='birthday'>{{$user->birthday}}</TD>
                         <TD class="text-center"><a href="/users/{{$user->id}}/comments">{{$user->comments_count}}</a></TD>
                         <TD class="text-center"><a href="/users/{{$user->id}}/posts">{{$user->posts_count}}</a></TD>
                         <TD>
                             <a href="/users/{{$user->id}}/comments"><button class="btn-primary">Show Comment</button></a>
                             <a href="/users/{{$user->id}}"><button class="btn-info">Show Detail</button></a>
+                        </TD>
+                        <TD>
+                            <button type="button" id="btn-edit" class="btn btn-success" data-toggle="modal" data-item-id="{{$user->id}}" data-target="#Modal-edit">Edit</button>
+                            <button type="button" id="btn-delete" class="btn btn-warning" data-toggle="modal" data-item-id="{{$user->id}}" data-target="#Modal-delete">Delete</button>
                         </TD>
                     </TR>
                 @endforeach
@@ -73,4 +99,5 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
 </body>
+</html>
 @endsection
