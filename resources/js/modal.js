@@ -39,7 +39,7 @@ $(document).ready(function() {
         var options = {
         'backdrop': 'static'
         };
-        $('#Modal-add').modal(options)
+        $('#Modal-delete').modal(options)
     })
 
     $('#Modal-delete').on('show.bs.modal', function() {        
